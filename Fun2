@@ -1,0 +1,30 @@
+Sub Picture3_Click()
+    b = Application.Caller
+    a = [a1].Text
+    ActiveSheet.Shapes.Range(Array(b)).Select
+    
+    ' Zoom picture
+    'ActiveSheet.Shapes.Range(Array(b)).Width = (ActiveSheet.Shapes.Range(Array(b)).Width) * 1.5
+    'ActiveSheet.Shapes.Range(Array(b)).Height = (ActiveSheet.Shapes.Range(Array(b)).Height) * 1.5
+
+    Selection.Copy
+    Range(a).Select
+    ActiveSheet.Pictures.Paste
+    
+    ' Adjust cell size to fit the image
+    With ActiveSheet.Pictures(ActiveSheet.Pictures.Count)
+        .TopLeftCell.RowHeight = .Height
+        .TopLeftCell.ColumnWidth = .Width / 7.5 ' Adjust the divisor if needed
+        
+        ' Add image name in the cell above
+        .TopLeftCell.Offset(-1, 0).Value = b
+    End With
+    
+    ' Back size to original
+    'ActiveSheet.Shapes.Range(Array(b)).Width = (ActiveSheet.Shapes.Range(Array(b)).Width) / 1.5
+    'ActiveSheet.Shapes.Range(Array(b)).Height = (ActiveSheet.Shapes.Range(Array(b)).Height) / 1.5
+    
+    ' Hide the dropdown list
+    ActiveSheet.Shapes.Range("group 67").Visible = True
+    ActiveSheet.Range(a).Select
+End Sub
